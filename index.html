@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call of Max - 8-bit Shooter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1a1a1a;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 4px solid #00ff00;
+            box-shadow: 0 0 20px #00ff00;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            image-rendering: pixelated;
+        }
+
+        .controls {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .controls p {
+            margin: 10px 0;
+            color: #00ff00;
+        }
+
+        .game-stats {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #00ff00;
+            font-size: 14px;
+            font-family: monospace;
+            z-index: 10;
+        }
+
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border: 3px solid #ff0000;
+            color: #ff0000;
+            font-size: 2em;
+            z-index: 20;
+            display: none;
+            text-align: center;
+        }
+
+        .game-over.show {
+            display: block;
+        }
+
+        .level-complete {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border: 3px solid #00ff00;
+            color: #00ff00;
+            font-size: 2em;
+            z-index: 20;
+            display: none;
+            text-align: center;
+        }
+
+        .level-complete.show {
+            display: block;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            background: #00ff00;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        button:hover {
+            background: #00cc00;
+        }
+
+        .menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 30;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #00ff00;
+        }
+
+        .menu h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .menu p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .menu.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>☢ CALL OF MAX ☢</h1>
+        <div id="gameContainer">
+            <canvas id="gameCanvas"></canvas>
+            <div class="game-stats">
+                <div>Level: <span id="level">1</span></div>
+                <div>Health: <span id="health">100</span></div>
+                <div>Ammo: <span id="ammo">∞</span></div>
+                <div>Score: <span id="score">0</span></div>
+            </div>
+            <div class="game-over" id="gameOver">
+                GAME OVER<br>
+                <span id="finalScore" style="font-size: 0.7em;"></span><br>
+                <button onclick="location.reload()">Play Again</button>
+            </div>
+            <div class="level-complete" id="levelComplete">
+                LEVEL COMPLETE!<br>
+                <span id="levelScore" style="font-size: 0.7em;"></span><br>
+                <button onclick="nextLevel()">Next Level</button>
+            </div>
+            <div class="menu" id="menu">
+                <h2>CALL OF MAX</h2>
+                <p>8-bit Retro Shooter</p>
+                <p style="margin: 20px 0; font-size: 1em; color: #888;">Arrow Keys or WASD to Move</p>
+                <p style="font-size: 1em; color: #888;">Click to Shoot</p>
+                <button onclick="startGame()">START CAMPAIGN</button>
+            </div>
+        </div>
+        <div class="controls">
+            <p>🎮 Use Arrow Keys or WASD to Move | Click to Shoot</p>
+            <p>📊 Survive 5 Levels to Complete Campaign</p>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
